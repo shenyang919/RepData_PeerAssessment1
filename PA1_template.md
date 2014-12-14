@@ -6,7 +6,7 @@ keep_md: yes
 
 
 ## Loading and preprocessing the data
-1. Downloading the data set and unzip it
+- Downloading the data set and unzip it
 
 ```r
 download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",
@@ -16,7 +16,7 @@ download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.z
 unzip("PA1.zip")
 raw <- read.csv("activity.csv")
 ```
-2. Converting raw data from data.frame to data.table for later processing
+- Converting raw data from data.frame to data.table for later processing
 
 ```r
 library("data.table")
@@ -25,7 +25,7 @@ raw <- data.table(raw)
 
 
 ## What is mean total number of steps taken per day?
-1. Sum up total number of steps each day, and calculate the mean and median at 
+- Sum up total number of steps each day, and calculate the mean and median at 
    the same time. The resultant data will be shown in the html file.
 
 ```r
@@ -100,7 +100,7 @@ print(plotdata1)
 ##           date   sum       mean median
 ```
 
-2. Plot a histogram based on the total number of steps in each day
+- Plot a histogram based on the total number of steps in each day
 
 ```r
 hist(plotdata1$sum, xlab="Sum of steps", ylab="Frequency",
@@ -110,7 +110,7 @@ hist(plotdata1$sum, xlab="Sum of steps", ylab="Frequency",
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 ## What is the average daily activity pattern?
-1. First of all summarize the daily steps by taking the average across all 
+- First of all summarize the daily steps by taking the average across all 
    days for each interval. The resultant data will be shown.
 
 ```r
@@ -134,7 +134,7 @@ print(plotdata2)
 ## 288:     2355  57 1.0754717
 ```
 
-2. Make a line plot with x-axis being the interval and y-axis being average steps
+- Make a line plot with x-axis being the interval and y-axis being average steps
 
 ```r
 plot(plotdata2$interval, plotdata2$average, type="l",
@@ -144,7 +144,7 @@ plot(plotdata2$interval, plotdata2$average, type="l",
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
-3. Find the interval with the max number of steps across all days
+- Find the interval with the max number of steps across all days
 
 ```r
 peak <- plotdata2[plotdata2$average == max(plotdata2$average),]
@@ -160,7 +160,7 @@ average **206.1698113 steps**
 
 
 ## Imputing missing values
-1. Compute the total numbers of rows with missing steps
+- Compute the total numbers of rows with missing steps
 
 ```r
 total <- nrow(raw[is.na(raw$steps)])
@@ -172,7 +172,7 @@ print(total)
 ```
 Uh-ha, there are **2304** rows with missing data
 
-2. Fill up the missing data with mean for that 5 minute interval
+- Fill up the missing data with mean for that 5 minute interval
 
 ```r
 ## Using a for loop in this way is actually a bad idea as it's significantly slow
@@ -189,7 +189,7 @@ for(i in 1:n) {
 }
 ```
 
-3. Prepare plot data and generate a new histogram
+- Prepare plot data and generate a new histogram
 
 ```r
 plotdata3 <- newraw[, list(sum=sum(steps), mean=mean(steps), 
@@ -275,7 +275,7 @@ missing. For days having valid step data, there is essentially no change.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
-1. Create a new column called 'wd' from the initial 'date' column, and append 
+- Create a new column called 'wd' from the initial 'date' column, and append 
 the new column to the dataset. Convert the initial date in format "%Y-%m-%d" 
 into dates and derive the "Weekday" and "Weekend" factors.
 
@@ -290,7 +290,7 @@ newraw[(newraw$wd=="Monday" | newraw$wd=="Tuesday" | newraw$wd=="Wednesday" |
 
 newraw$wd <- as.factor(newraw$wd)
 ```
-2. Generating the Weekday Vs Weekend line charts
+- Generating the Weekday Vs Weekend line charts
 
 ```r
 library(lattice)
